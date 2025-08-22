@@ -5,14 +5,54 @@ interface SearchFormData {
     author: string;
 }
 
+interface BookResult {
+    cover_i: number;
+    has_fulltext: boolean;
+    edition_count: number;
+    title: string;
+    author_name: string[];
+    first_publish_year: number;
+    key: string;
+    ia: string[];
+    author_key: string[];
+    public_scan_b: true;
+}
+
+const constructCoverUrl = (cover_i: number) => {
+    return `https://covers.openlibrary.org/b/id/${cover_i}-M.jpg`;
+};
+
+interface SearchResults {
+    numFound: number;
+    start: number;
+    numFoundExact: boolean;
+    num_found: number;
+    offset: null;
+    docs: BookResult[];
+    q: string;
+    documentation_url: string;
+}
+
+const defaultSearchResults = {
+    numFound: 0,
+    start: 0,
+    numFoundExact: false,
+    num_found: 0,
+    offset: null,
+    docs: [] as BookResult[],
+    q: "string",
+    documentation_url: "https://openlibrary.org/dev/docs/api/search",
+};
+
 function SearchPage() {
     const [searchFormData, setSearchFormData] = useState<SearchFormData>({
         q: "",
         author: "",
     });
-    const [searchResults, setSearchResults] = useState({});
+    const [searchResults, setSearchResults] =
+        useState<SearchResults>(defaultSearchResults);
 
-    const constructSearchUrl = (formData) => {
+    const constructSearchUrl = (formData: SearchFormData) => {
         const filtered = Object.fromEntries(
             Object.entries(formData)
                 .filter(([_, value]) => value != null && value !== "")
@@ -51,9 +91,9 @@ function SearchPage() {
         const searchUrl = constructSearchUrl(formData);
         const response = await fetch(searchUrl);
 
-        let results = {};
+        let results = defaultSearchResults;
         try {
-            results = (await response.json()) as string;
+            results = (await response.json()) as SearchResults;
         } catch (e) {
             console.error(e);
         }
@@ -90,7 +130,24 @@ function SearchPage() {
                     <button type="submit">Submit</button>
                 </form>
             </div>
-            <div>{JSON.stringify(searchResults)}</div>
+            <div>
+                {searchResults.docs.map(
+                    (bookResult: BookResult, idx: number) => {
+                        return (
+                            <div
+                                key={`${idx}-${bookResult.title}`}
+                                className="border-2"
+                            >
+                                <img
+                                    src={constructCoverUrl(bookResult.cover_i)}
+                                />
+                                <div>Title: {bookResult.title}</div>
+                                <div>Author: {bookResult.author_name}</div>
+                            </div>
+                        );
+                    },
+                )}
+            </div>
         </div>
     );
 }
