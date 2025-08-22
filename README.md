@@ -20,7 +20,6 @@ This project has been extended from the original basic vite project and now has 
 - Pinned node version to ensure compatibility with dependencies
 - Path aliases setup for easy importing of components and assets
 - Minimum prettier configured
-- Custom DaisyUI theme
 - Configured Tailwind CSS name ordering
 - Tailwind CSS name autocompletion in vscode
 
