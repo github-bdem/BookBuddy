@@ -6,14 +6,19 @@ import ReadingListContextProvider from "./components/ReadingList/ReadingListCont
 
 function App() {
     return (
-        <div className="min-h-screen">
-            <div>
+        <div className="flex min-h-screen flex-col">
+            <div className="flex flex-row justify-between bg-cyan-800 p-6">
                 <button>
-                    <Link to="/search">Search</Link>
+                    <Link to="/">Book Buddy Home</Link>
                 </button>
-                <button>
-                    <Link to="/reading-list">View My Reading List</Link>
-                </button>
+                <div className="flex flex-row gap-6">
+                    <button>
+                        <Link to="/search">Search</Link>
+                    </button>
+                    <button>
+                        <Link to="/reading-list">View My Reading List</Link>
+                    </button>
+                </div>
             </div>
             <ReadingListContextProvider>
                 <Routes>

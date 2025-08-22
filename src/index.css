@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+/* quick and dirty element stylings */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
