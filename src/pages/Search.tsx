@@ -1,24 +1,18 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { useState } from "react";
 
-const bookSearchFormSchema = z.object({
-    q: z.string(),
-    author: z.string(),
-});
-
-type BookSearchFormData = z.infer<typeof bookSearchFormSchema>;
+interface SearchFormData {
+    q: string;
+    author: string;
+}
 
 function SearchPage() {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isSubmitting },
-    } = useForm<BookSearchFormData>({
-        resolver: zodResolver(bookSearchFormSchema),
+    const [searchFormData, setSearchFormData] = useState<SearchFormData>({
+        q: "",
+        author: "",
     });
+    const [searchResults, setSearchResults] = useState({});
 
-    const constructSearchUrl = (formData: BookSearchFormData) => {
+    const constructSearchUrl = (formData) => {
         const filtered = Object.fromEntries(
             Object.entries(formData)
                 .filter(([_, value]) => value != null && value !== "")
@@ -30,8 +24,29 @@ function SearchPage() {
         return `https://openlibrary.org/search.json?${searchParams}`;
     };
 
-    const onSubmit = async (formData: BookSearchFormData) => {
-        console.log(formData);
+    const handleFormDataChange = (
+        formUpdateEvent: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        const { name, value } = formUpdateEvent.target;
+        setSearchFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmitEvent = async (formSubmissionEvent: React.FormEvent) => {
+        formSubmissionEvent.preventDefault();
+
+        console.log(formSubmissionEvent);
+
+        const rawFormData = new FormData(formSubmissionEvent.currentTarget);
+
+        const formData: SearchFormData = {
+            q: rawFormData.get("q") as string,
+            author: rawFormData.get("author") as string,
+        };
+
+        console.log("formData", formData);
 
         const searchUrl = constructSearchUrl(formData);
         const response = await fetch(searchUrl);
@@ -44,34 +59,38 @@ function SearchPage() {
         }
 
         console.log(results);
+        setSearchResults(results);
     };
 
     return (
         <div>
             <h1>Search Page</h1>
             <div>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmitEvent}>
                     <div>
                         <input
-                            {...register("q")}
+                            id="q"
+                            name="q"
+                            value={searchFormData.q}
+                            onChange={handleFormDataChange}
                             type="text"
                             placeholder="Book Title"
                         />
-                        {errors.q && <span>{errors.q.message}</span>}
                     </div>
                     <div>
                         <input
-                            {...register("author")}
+                            onChange={handleFormDataChange}
+                            value={searchFormData.author}
+                            id="author"
+                            name="author"
                             type="text"
                             placeholder="Author Name"
                         />
-                        {errors.author && <span>{errors.author.message}</span>}
                     </div>
-                    <button type="submit" disabled={isSubmitting}>
-                        {isSubmitting ? "Submitting..." : "Submit"}
-                    </button>
+                    <button type="submit">Submit</button>
                 </form>
             </div>
+            <div>{JSON.stringify(searchResults)}</div>
         </div>
     );
 }
