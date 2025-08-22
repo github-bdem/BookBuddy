@@ -1,36 +1,9 @@
 import { useState } from "react";
+import BookCard, { BookResult } from "src/components/BookCard/BookCard";
 
 interface SearchFormData {
     q: string;
     author: string;
-}
-
-interface BookResult {
-    cover_i: number;
-    has_fulltext: boolean;
-    edition_count: number;
-    title: string;
-    author_name: string[];
-    first_publish_year: number;
-    key: string;
-    ia: string[];
-    author_key: string[];
-    public_scan_b: true;
-}
-
-const constructCoverUrl = (cover_i: number) => {
-    return `https://covers.openlibrary.org/b/id/${cover_i}-M.jpg`;
-};
-
-interface SearchResults {
-    numFound: number;
-    start: number;
-    numFoundExact: boolean;
-    num_found: number;
-    offset: null;
-    docs: BookResult[];
-    q: string;
-    documentation_url: string;
 }
 
 const defaultSearchResults = {
@@ -43,6 +16,17 @@ const defaultSearchResults = {
     q: "string",
     documentation_url: "https://openlibrary.org/dev/docs/api/search",
 };
+
+interface SearchResults {
+    numFound: number;
+    start: number;
+    numFoundExact: boolean;
+    num_found: number;
+    offset: null;
+    docs: BookResult[];
+    q: string;
+    documentation_url: string;
+}
 
 function SearchPage() {
     const [searchFormData, setSearchFormData] = useState<SearchFormData>({
@@ -134,16 +118,10 @@ function SearchPage() {
                 {searchResults.docs.map(
                     (bookResult: BookResult, idx: number) => {
                         return (
-                            <div
+                            <BookCard
                                 key={`${idx}-${bookResult.title}`}
-                                className="border-2"
-                            >
-                                <img
-                                    src={constructCoverUrl(bookResult.cover_i)}
-                                />
-                                <div>Title: {bookResult.title}</div>
-                                <div>Author: {bookResult.author_name}</div>
-                            </div>
+                                bookResult={bookResult}
+                            />
                         );
                     },
                 )}

@@ -5,7 +5,7 @@ import ReadingListPage from "./pages/ReadingList";
 
 function App() {
     return (
-        <div>
+        <div className="min-h-screen">
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/search" element={<SearchPage />} />
