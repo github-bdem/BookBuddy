@@ -17,7 +17,11 @@ from `package.json`
 
 ## Submission Notes
 
-To save time I used my existing front end [Template Repository](https://github.com/github-bdem/vite-react-tailwind-project-template). Its basically just a bare bones, pre-configured, React/Typescript/Tailwind project, I hope its not an issue!
+To save time I used my existing front end [Template Repository](https://github.com/github-bdem/vite-react-tailwind-project-template).
+
+I wasn't sure what the `or` meant under persistent reading list, my solution persists the readingList state to `localStorage` see `ReadingListContextProvider` for details.
+
+I probably could have memoized the search or list views but I ran out of time.
 
 ### Omitted approach
 
