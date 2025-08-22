@@ -10,6 +10,8 @@ npm i
 npm run dev
 ```
 
+Then navigate to [the local development server](http://localhost:5173/)
+
 if you get an engine unsupported error try either installing the recommended node version, or remove
 
 ```json
