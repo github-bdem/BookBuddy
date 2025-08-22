@@ -1,4 +1,8 @@
 import { useState } from "react";
+import {
+    ReadingListAction,
+    useReadingListContext,
+} from "../ReadingList/ReadingListContext";
 
 export interface BookResult {
     cover_i: number;
@@ -18,14 +22,39 @@ export interface BookResult {
 function BookCard({ bookResult }: { bookResult: BookResult }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
+    const { state, dispatch } = useReadingListContext();
+
     const constructCoverUrl = (cover_i: number) => {
         return `https://covers.openlibrary.org/b/id/${cover_i}-M.jpg`;
     };
 
+    const addBookToReadingList = () => {
+        dispatch({
+            type: ReadingListAction.ADD_BOOK_TO_READING_LIST,
+            payload: {
+                bookToAdd: bookResult,
+            },
+        });
+    };
+
+    const isFavorited =
+        state.readingList
+            .map((book) => book.cover_i)
+            .findIndex((cover_i) => cover_i === bookResult.cover_i) !== -1;
+
     return (
         <div className="border-2">
+            <div>
+                <div>Title: {bookResult.title}</div>
+                {isFavorited ? (
+                    <div>(On Reading List)</div>
+                ) : (
+                    <button onClick={addBookToReadingList}>
+                        Add to Reading List
+                    </button>
+                )}
+            </div>
             <img src={constructCoverUrl(bookResult.cover_i)} />
-            <div>Title: {bookResult.title}</div>
             <div>Author: {bookResult.author_name}</div>
             <button onClick={() => setIsExpanded(!isExpanded)}>
                 {`More (${isExpanded ? "-" : "+"})`}

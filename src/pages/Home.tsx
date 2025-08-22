@@ -8,10 +8,10 @@ function HomePage() {
                 <h2>What would you like to do today?</h2>
             </div>
             <div className="flex flex-row gap-6">
-                <button className="bg-blue-500 text-white">
+                <button>
                     <Link to="/search">Search</Link>
                 </button>
-                <button className="bg-blue-500 text-white">
+                <button>
                     <Link to="/reading-list">View My Reading List</Link>
                 </button>
             </div>
