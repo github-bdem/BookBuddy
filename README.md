@@ -1,36 +1,28 @@
-# Personal Project Template (vite-react-tailwind-project-template)
+## Running locally:
 
-While working on my [Food Roulette](https://github.com/github-bdem/food-roulette) project I decided that I really liked the config I had worked up there. I had the linting, prettier rules, aliasing, etc. all just how I liked them. So in order to speed up development using this tech stack, I created this [Template Repo](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) so that I can just spin up a new project and not have to re-configure everything.
+Project built with Vite, so more detailed run/build information is available at their [rundocs](https://vite.dev/guide/)
 
-## Built Using
+```bash
+npm i
+npm run dev
+```
 
-This project was created using:
+if you get an engine unsupported error try either installing the recommended node version, or remove
 
-- [Vite](https://vite.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [DaisyUI v5](https://daisyui.com/)
-- [Vitest](https://vitest.dev/)
+```json
+"node": "22.13.1"
+```
 
-## Technical Features
+from `package.json`
 
-This project has been extended from the original basic vite project and now has the following features:
+## Submission Notes
 
-- Examples of mocking out react context providers and consumers
-- Eslint config expanded with vite recommended production options
-- Pinned node version to ensure compatibility with dependencies
-- Path aliases setup for easy importing of components and assets
-- Minimum prettier configured
-- Configured Tailwind CSS name ordering
-- Tailwind CSS name autocompletion in vscode
+To save time I used my existing front end [Template Repository](https://github.com/github-bdem/vite-react-tailwind-project-template). Its basically just a bare bones, pre-configured, React/Typescript/Tailwind project, I hope its not an issue!
 
-## Running
+### Omitted approach
 
-To run this project please refer to the [Vite rundocs](https://vite.dev/guide/)
+I originally used zod for the search form, but then realized you all probably wanted us to use plain react so I scrapped that. That form work can be [seen here](https://github.com/github-bdem/BookBuddy/blob/oops-used-zod/src/pages/Search.tsx).
 
-## Testing
+### Final Notes
 
-3 test commands are provided:
-
-- `test` - runs the test suites in command line
-- `coverage` - runs tests and generates our coverage files
-- `test-with-ui` - runs the [Vitest UI](https://vitest.dev/guide/ui.html) (Note you have to have run the coverage command to get coverage displayed in the UI tool)
+I ran out of time before adding tests, feel free to check out some of the tests in a similar project I have if [you're interested](https://https://github.com/github-bdem/food-roulette/blob/main/src/components/ResultsSidebar/tests/ResultsSidebar.test.tsx)
