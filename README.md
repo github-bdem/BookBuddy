@@ -22,7 +22,7 @@ from `package.json`
 
 To save time I used my existing front end [Template Repository](https://github.com/github-bdem/vite-react-tailwind-project-template).
 
-I wasn't sure what the `or` meant under persistent reading list, my solution persists the readingList state to `localStorage` see `ReadingListContextProvider` for details.
+I wasn't sure what the `or` meant with regards to the persistent reading list, my solution persists the readingList state to `localStorage` see `ReadingListContextProvider` for details.
 
 I probably could have memoized the search or list views but I ran out of time.
 
