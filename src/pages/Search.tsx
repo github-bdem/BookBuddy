@@ -1,5 +1,6 @@
 import { useState } from "react";
-import BookCard, { BookResult } from "src/components/BookCard/BookCard";
+import { BookResult } from "src/components/BookCard/BookCard";
+import BookList from "src/components/BookList/BookList";
 
 interface SearchFormData {
     q: string;
@@ -114,18 +115,7 @@ function SearchPage() {
                     <button type="submit">Submit</button>
                 </form>
             </div>
-            <div>
-                {searchResults.docs.map(
-                    (bookResult: BookResult, idx: number) => {
-                        return (
-                            <BookCard
-                                key={`${idx}-${bookResult.title}`}
-                                bookResult={bookResult}
-                            />
-                        );
-                    },
-                )}
-            </div>
+            <BookList bookResults={searchResults.docs} title="Search Results" />
         </div>
     );
 }
