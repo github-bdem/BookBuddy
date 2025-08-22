@@ -43,32 +43,37 @@ function BookCard({ bookResult }: { bookResult: BookResult }) {
             .findIndex((cover_i) => cover_i === bookResult.cover_i) !== -1;
 
     return (
-        <div className="border-2">
-            <div>
+        <div className="border-2 p-6">
+            <div className="mb-6 flex min-h-[320px] w-full items-center justify-center bg-gray-500">
+                <img src={constructCoverUrl(bookResult.cover_i)} />
+            </div>
+            <div className="mb-6 flex flex-col justify-between">
                 <div>Title: {bookResult.title}</div>
+                <div>Author: {bookResult.author_name}</div>
+            </div>
+            <div className="mb-6">
+                <button onClick={() => setIsExpanded(!isExpanded)}>
+                    {`More Details (${isExpanded ? "-" : "+"})`}
+                </button>
+
+                {isExpanded ? (
+                    <div className="mt-6">
+                        <div>Ebook Available: {bookResult.ebook_access}</div>
+                        <div>Publish Year: {bookResult.first_publish_year}</div>
+                    </div>
+                ) : null}
+            </div>
+            <div className="flex flex-row justify-end">
                 {isFavorited ? (
-                    <div>(On Reading List)</div>
+                    <div className="bg-yellow-300 p-2 text-black">
+                        (On Reading List)
+                    </div>
                 ) : (
                     <button onClick={addBookToReadingList}>
                         Add to Reading List
                     </button>
                 )}
             </div>
-            <img src={constructCoverUrl(bookResult.cover_i)} />
-            <div>Author: {bookResult.author_name}</div>
-            <button onClick={() => setIsExpanded(!isExpanded)}>
-                {`More (${isExpanded ? "-" : "+"})`}
-            </button>
-            {isExpanded ? (
-                <div>
-                    <div>Ebook Available: {bookResult.ebook_access}</div>
-                    <div>Publish Year: {bookResult.first_publish_year}</div>
-                    <div>
-                        Languages Available:{" "}
-                        {`${bookResult.language.join(", ")}`}
-                    </div>
-                </div>
-            ) : null}
         </div>
     );
 }

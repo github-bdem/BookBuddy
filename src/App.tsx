@@ -9,7 +9,7 @@ function App() {
         <div className="flex min-h-screen flex-col">
             <div className="flex flex-row justify-between bg-cyan-800 p-6">
                 <button>
-                    <Link to="/">Book Buddy Home</Link>
+                    <Link to="/">Home</Link>
                 </button>
                 <div className="flex flex-row gap-6">
                     <button>

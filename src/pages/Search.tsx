@@ -62,8 +62,6 @@ function SearchPage() {
     const handleSubmitEvent = async (formSubmissionEvent: React.FormEvent) => {
         formSubmissionEvent.preventDefault();
 
-        console.log(formSubmissionEvent);
-
         const rawFormData = new FormData(formSubmissionEvent.currentTarget);
 
         const formData: SearchFormData = {
@@ -71,7 +69,10 @@ function SearchPage() {
             author: rawFormData.get("author") as string,
         };
 
-        console.log("formData", formData);
+        if (formData.q === "" && formData.author === "") {
+            // This should be inline in the form
+            window.alert("Please enter at least one search parameter");
+        }
 
         const searchUrl = constructSearchUrl(formData);
         const response = await fetch(searchUrl);
@@ -88,12 +89,19 @@ function SearchPage() {
     };
 
     return (
-        <div>
-            <h1>Search Page</h1>
-            <div>
-                <form onSubmit={handleSubmitEvent}>
-                    <div>
+        <div className="p-6">
+            <h1 className="mb-6 text-3xl">Search</h1>
+            <form
+                className="mb-6 flex flex-col border-2 p-6"
+                onSubmit={handleSubmitEvent}
+            >
+                <div className="mb-6">
+                    <div className="mb-6 flex flex-col">
+                        <label htmlFor="q" className="mb-2">
+                            Title
+                        </label>
                         <input
+                            className="border-2 bg-white p-2"
                             id="q"
                             name="q"
                             value={searchFormData.q}
@@ -102,8 +110,12 @@ function SearchPage() {
                             placeholder="Book Title"
                         />
                     </div>
-                    <div>
+                    <div className="flex flex-col">
+                        <label htmlFor="author" className="mb-2">
+                            Author
+                        </label>
                         <input
+                            className="border-2 bg-white p-2"
                             onChange={handleFormDataChange}
                             value={searchFormData.author}
                             id="author"
@@ -112,10 +124,15 @@ function SearchPage() {
                             placeholder="Author Name"
                         />
                     </div>
-                    <button type="submit">Submit</button>
-                </form>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+            <div>
+                <BookList
+                    bookResults={searchResults.docs}
+                    title="Search Results"
+                />
             </div>
-            <BookList bookResults={searchResults.docs} title="Search Results" />
         </div>
     );
 }
