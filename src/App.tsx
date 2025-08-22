@@ -1,20 +1,17 @@
-import Counter from "@components/Counter/Counter";
-import AdjustCountButtons from "@components/Counter/AdjustCountButtons";
-import CounterContextProvider from "./components/Counter/CounterContextProvider";
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./pages/Home";
+import SearchPage from "./pages/Search";
+import ReadingListPage from "./pages/ReadingList";
 
 function App() {
     return (
-        <CounterContextProvider>
-            <div className="bg-primary flex h-screen w-screen flex-col items-center">
-                <div className="flex flex-col items-center gap-2">
-                    <div style={{ fontFamily: "Momentz" }} className="text-2xl">
-                        Vite React Tailwind Project Template
-                    </div>
-                    <AdjustCountButtons />
-                    <Counter />
-                </div>
-            </div>
-        </CounterContextProvider>
+        <div>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/search" element={<SearchPage />} />
+                <Route path="/reading-list" element={<ReadingListPage />} />
+            </Routes>
+        </div>
     );
 }
 
