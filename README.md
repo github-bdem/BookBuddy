@@ -1,3 +1,6 @@
+# BookBuddy
+<img width="1201" height="1129" alt="image" src="https://github.com/user-attachments/assets/0909c869-9d3f-4974-9639-c6cb032f8175" />
+
 ## Running locally:
 
 Project built with Vite, so more detailed run/build information is available at their [rundocs](https://vite.dev/guide/)
