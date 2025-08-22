@@ -34,4 +34,4 @@ I originally used zod for the search form, but then realized you all probably wa
 
 ### Final Notes
 
-I ran out of time before adding tests, feel free to check out some of the tests in a similar project I have if [you're interested](https://https://github.com/github-bdem/food-roulette/blob/main/src/components/ResultsSidebar/tests/ResultsSidebar.test.tsx)
+I ran out of time before adding tests, feel free to check out some of the tests in a similar project I have if [you're interested](https://github.com/github-bdem/food-roulette/blob/main/src/components/ResultsSidebar/tests/ResultsSidebar.test.tsx)
